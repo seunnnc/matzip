@@ -3,6 +3,8 @@ package com.koreait.matzip.user;
 import com.koreait.matzip.SecurityUtils;
 import com.koreait.matzip.vo.UserVO;
 
+
+//로직담당
 public class UserService {
 	private UserDAO dao;
 	
@@ -19,5 +21,27 @@ public class UserService {
 		param.setSalt(salt);
 		
 		return dao.join(param);
+	}
+	
+	//result 0:에러(지금은 에러뜨는거 거의 불가능) 1:로그인 성공 2:아이디없음 3:비번틀림
+	public int login(UserVO param) {
+		int result = 0;
+		
+		UserVO dbResult = dao.selUser(param);
+		
+		if(dbResult.getI_user() == 0) {
+			result = 2;
+		} else {
+			String salt = dbResult.getSalt();
+			String encryptPw = SecurityUtils.getEncrypt(param.getUser_pw(), salt);
+			
+			if(encryptPw.equals(dbResult.getUser_pw())) {
+				result = 1;
+			} else {
+				result = 3;
+			}
+		}
+		
+		return result;
 	}
 }

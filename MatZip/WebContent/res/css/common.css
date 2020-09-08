@@ -22,5 +22,9 @@ html, body {
 
 .frm {
 	padding: 15px;
-	border: 1px solid #bdc3c7;
+	border: 1px solid #ecdaf6;
+}
+
+.msg {
+	color: red;
 }

@@ -14,7 +14,7 @@ public class SecurityUtils {
 
 		StringBuffer sb = new StringBuffer();
 		for (int i = 0; i < salt.length; i++) {
-			// byte 값을 Hex 값으로 바꾸기.
+			// byte 값을 Hex 값으로 바꾸기
 			System.out.println(i + " : " + String.format("%02x", salt[i]));
 			sb.append(String.format("%02x", salt[i]));
 		}
