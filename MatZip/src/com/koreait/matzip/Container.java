@@ -29,12 +29,19 @@ public class Container extends HttpServlet {
 	}
 
 	private void proc(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		String routerCheckResult = LoginChkInterceptor.routerChk(request);
+		if(routerCheckResult != null) {
+			response.sendRedirect(routerCheckResult);
+			return;
+		}
+		
 		String temp = mapper.nav(request);
 
 		if(temp.indexOf(":") >= 0) {
 			String prefix = temp.substring(0, temp.indexOf(":"));
 			String value = temp.substring(temp.indexOf(":") + 1);
-			
+
 			System.out.println("prefix : " + prefix);
 			System.out.println("value : " + value);
 
@@ -51,15 +58,15 @@ public class Container extends HttpServlet {
 			}
 		}
 
-	switch(temp) {
-	case "405":
-		temp = "/WEB-INF/view/error.jsp";
-		break;
-	case "404":
-		temp = "/WEB-INF/view/notFound.jsp";
-		break;
+		switch(temp) {
+		case "405":
+			temp = "/WEB-INF/view/error.jsp";
+			break;
+		case "404":
+			temp = "/WEB-INF/view/notFound.jsp";
+			break;
+		}
+		request.getRequestDispatcher(temp).forward(request, response);
 	}
-	request.getRequestDispatcher(temp).forward(request, response);
-}
 
 }
