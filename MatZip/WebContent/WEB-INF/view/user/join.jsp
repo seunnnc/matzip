@@ -21,7 +21,7 @@
 			const user_id = frm.user_id.value
 			axios.get('/user/ajaxIdChk', {
 				params: {
-					user_id
+					'user_id': user_id
 				}
 			}).then(function(res) {
 				console.log(res)
