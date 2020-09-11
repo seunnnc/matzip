@@ -3,6 +3,7 @@ package com.koreait.matzip.restaurant;
 import javax.servlet.http.HttpServletRequest;
 
 import com.koreait.matzip.CommonDAO;
+import com.koreait.matzip.CommonUtils;
 import com.koreait.matzip.Const;
 import com.koreait.matzip.SecurityUtils;
 import com.koreait.matzip.ViewRef;
@@ -36,9 +37,10 @@ public class RestaurantController {
 		String addr = request.getParameter("addr");
 		String strLat = request.getParameter("lat");
 		String strLng = request.getParameter("lng");
+		String strCd_category = request.getParameter("cd_category");
 		double lat = Double.parseDouble(strLat);
 		double lng = Double.parseDouble(strLng);
-		String cd_category = request.getParameter("cd_category");
+		int cd_category = CommonUtils.parseStrToInt(strCd_category);
 		UserVO vo = SecurityUtils.getLoginUser(request);
 		
 		RestaurantVO param = new RestaurantVO();
@@ -52,6 +54,10 @@ public class RestaurantController {
 		int result = service.restReg(param);
 		
 		return "redirect:/restaurant/restMap";
+	}
+	
+	public String ajaxGetList(HttpServletRequest request) {
+		return null;
 	}
 
 }

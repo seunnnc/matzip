@@ -6,7 +6,7 @@ public class RestaurantVO {
 	private String addr;
 	private double lat;
 	private double lng;
-	private String cd_category;
+	private int cd_category;
 	private int i_user;
 	private String r_dr;
 	private String m_dt;
@@ -40,10 +40,10 @@ public class RestaurantVO {
 	public void setLng(double lng) {
 		this.lng = lng;
 	}
-	public String getCd_category() {
+	public int getCd_category() {
 		return cd_category;
 	}
-	public void setCd_category(String cd_category) {
+	public void setCd_category(int cd_category) {
 		this.cd_category = cd_category;
 	}
 	public String getR_dr() {

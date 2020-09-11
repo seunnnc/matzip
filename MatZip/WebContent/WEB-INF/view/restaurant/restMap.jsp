@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <div id="sectionContainerCenter">
-	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a1d159f218bfc0f213d587f849529f85"></script>
 	<div id="mapContainer" style="width:100%; height:100%;"></div>
+	
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a1d159f218bfc0f213d587f849529f85"></script>
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 	<script>
 		const container = document.getElementById('mapContainer'); //지도를 담을 영역의 DOM 레퍼런스
 		const options = { //지도를 생성할 때 필요한 기본 옵션
@@ -11,5 +13,26 @@
 		};
 	
 		const map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+		
+		console.log(map.getCenter())
+		
+		function getRestaurantList() {
+			axios.get("/restaurant/ajaxGetList").then(function(res) {
+				console.log(res.data)
+				
+				res.data.forEach(function(item) {
+					const na = {
+							'Ga': item.lng,
+							'Ha': item.lat
+					}
+					var marker - new kakao.maps.Marker() {
+						position: na
+					}
+					marker.setMap(map)
+				})
+			})
+		}
+		
+		getRestaurantList()
 	</script>
 </div>

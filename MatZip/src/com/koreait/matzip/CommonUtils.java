@@ -8,4 +8,15 @@ public class CommonUtils {
 		return request.getSession();
 	}
 	
+	public static int parseStrToInt(String str) {
+		try {
+			Integer.parseInt(str); 
+		} catch(Exception e) {}
+		return 0;
+	}
+	
+//	public static int getIntParameter(String str, HttpServletRequest request) {
+//		return parseStrToInt(request.)
+//	}
+//	
 }
