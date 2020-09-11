@@ -9,7 +9,6 @@
 * {
 	box-sizing: border-box;
 	font-family: 'InfinitySans-RegularA1', sans-serif;
-	font-size: 1em;
 }
 
 html, body {
@@ -34,6 +33,10 @@ a {
 
 .mL15 {
 	margin-left: 15px;
+}
+
+.mL20 {
+	margin-left: 20px;
 }
 
 #container {
@@ -68,6 +71,10 @@ a {
 
 #container > header > #headerLeft > #headerLogout > a {
 	color: #f9a946;
+}
+
+#container > header > #headerLeft > #headerLogout > a > i {
+	font-size: 1.3em;
 }
 
 #container > header > #headerRight {

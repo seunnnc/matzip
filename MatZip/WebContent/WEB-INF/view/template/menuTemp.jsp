@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" type="text/css" href="/res/css/common.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
 <title>${title}</title>
 </head>
 <body>
@@ -26,9 +27,15 @@
 				<div class="mL15" id="headerLogout"><a href="/user/logout">로그아웃</a></div>
 			</div>
 			<div id="headerRight">
-				<a href="/restaurant/restMap">지도</a>
-				<a class="mL15" href="/restaurant/restReg">등록</a>
-				<a class="mL15" href="/user/restFavorite">북마크</a>
+				<a href="/restaurant/restMap">
+					<i class="fas fa-map-marked-alt"></i>
+				</a>
+				<a class="mL20" href="/restaurant/restReg">
+					<i class="fas fa-plus"></i>
+				</a>
+				<a class="mL20" href="/user/restFavorite">
+					<i class="fas fa-bookmark"></i>
+				</a>
 			</div>
 		</header>
 		<section>
