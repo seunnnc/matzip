@@ -45,7 +45,11 @@ a {
 
 #container > header {
 	background-color: #fdfdfd;
-	border: 3px solid linear-gradient(to bottom, red, blue);
+	border-bottom: 3px solid transparent;
+    -moz-border-image: -moz-linear-gradient(top left, #f0d45e 0%, #f9a946 100%);
+    -webkit-border-image: -webkit-linear-gradient(top left, #f0d45e 0%, #f9a946 100%);
+    border-image: linear-gradient(to left right, #f0d45e 0%, #f9a946 100%);
+    border-image-slice: 1;
 	display: flex; 
 	height : 60px;
 	padding: 10px;
