@@ -12,7 +12,7 @@
 	<div id="container">
 		<header>
 			<div id="headerLeft">
-				<div class="containerPImg">
+				<div class="containerPImg mL10" >
 					<c:choose>
 						<c:when test="${loginUser.profile_img != null}">
 							<img class="pImg" src="/res/img/user/${loginUSer.i_user}/${loginUser.profile_img}">
@@ -22,12 +22,13 @@
 						</c:otherwise>
 					</c:choose>
 				</div>
-				<div class="mL10">${loginUser.nm}님 환영합니다 </div>
+				<div class="mL10"><span id="user_nm">${loginUser.nm}</span>님 환영합니다 </div>
 				<div class="mL15" id="headerLogout"><a href="/user/logout">로그아웃</a></div>
 			</div>
 			<div id="headerRight">
-				<a href="/restaurant/reg">등록</a>
-				<a class="mL15" href="/user/favorite">북마크</a>
+				<a href="/restaurant/restMap">지도</a>
+				<a class="mL15" href="/restaurant/restReg">등록</a>
+				<a class="mL15" href="/user/restFavorite">북마크</a>
 			</div>
 		</header>
 		<section>

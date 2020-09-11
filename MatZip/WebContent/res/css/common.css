@@ -1,14 +1,14 @@
 @charset "UTF-8";
 @font-face {
-     font-family: 'S-CoreDream-8Heavy';
-     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-8Heavy.woff') format('woff');
-     font-weight: normal;
-     font-style: normal;
+    font-family: 'InfinitySans-RegularA1';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/InfinitySans-RegularA1.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
 }
-
+            
 * {
 	box-sizing: border-box;
-	font-family: 'S-CoreDream-8Heavy', sans-serif;
+	font-family: 'InfinitySans-RegularA1', sans-serif;
 	font-size: 1em;
 }
 
@@ -44,8 +44,10 @@ a {
 }
 
 #container > header {
-	background-color: #fdbdb8;
-	display: flex; height : 60px;
+	background-color: #fdfdfd;
+	border: 3px solid linear-gradient(to bottom, red, blue);
+	display: flex; 
+	height : 60px;
 	padding: 10px;
 	height: 60px;
 }
@@ -56,8 +58,12 @@ a {
 	align-items: center;
 }
 
+#container > header > #headerLeft > div > span {
+	color: #f9a946;
+}
+
 #container > header > #headerLeft > #headerLogout > a {
-	color: #ba3f1f;
+	color: #f9a946;
 }
 
 #container > header > #headerRight {
@@ -65,7 +71,11 @@ a {
 	display: flex;
 	flex-grow: 1;
 	justify-content: flex-end;
-	padding-right:10px;
+	padding-right:15px;
+}
+
+#container > header > #headerRight > a {
+	color: #f9a946;
 }
 
 #container > section {
@@ -76,7 +86,7 @@ a {
 
 #container > footer {
 	align-items: center;
-	background-color: #ced5df;
+	background-color: #7a7a7a;
 	color: white;
 	display: flex;
 	flex-grow: 50px;
@@ -93,14 +103,14 @@ a {
 }
 
 .containerPImg {
-	width: 20px;
-	height: 20px;
+	width: 25px;
+	height: 25px;
 	display: inline-block;
 }
 
 .pImg {
-	width: 20px;
-	height: 20px;
+	width: 25px;
+	height: 25px;
 	border-radius: 50%;
 }
 
