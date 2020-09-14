@@ -6,7 +6,7 @@
 		<form id="frm" action="/restaurant/restRegProc" method="post" onsubmit="return chkFrm()">
 			<div><input type="text" name="nm" placeholder="가게명"></div>
 			<div>
-				<input type="text" name="addr" placeholder="주소" onkeyup="changeAddr()">
+				<input type="text" name="addr" placeholder="주소" onkeyup="changeAddr()" style="width:200px">
 				<button type="button" onclick="getLatLng()">좌표가져오기</button><span id="resultGetLatLng"></span>
 			</div>
 			<input type="hidden" name="lat" value="0">
