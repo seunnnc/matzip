@@ -1,5 +1,7 @@
 package com.koreait.matzip.restaurant;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
 
 import com.koreait.matzip.CommonDAO;
@@ -7,9 +9,10 @@ import com.koreait.matzip.CommonUtils;
 import com.koreait.matzip.Const;
 import com.koreait.matzip.SecurityUtils;
 import com.koreait.matzip.ViewRef;
-import com.koreait.matzip.vo.RestaurantDomain;
 import com.koreait.matzip.vo.RestaurantVO;
 import com.koreait.matzip.vo.UserVO;
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 public class RestaurantController {
 	private RestaurantService service;
@@ -71,6 +74,33 @@ public class RestaurantController {
 		request.setAttribute(Const.TITLE, "디테일");
 		request.setAttribute(Const.VIEW, "restaurant/restDetail");
 		return ViewRef.TEMP_MENUTEMP;
+	}
+	
+	public String addRecMenusProc(HttpServletRequest request) {
+		
+		String uploads = request.getRealPath("/res/img");
+		MultipartRequest multi = null;
+		String strI_rest = null;
+		String[] menu_nmArr = null;
+		String[] menu_priceArr = null;
+		try {
+			multi=new MultipartRequest(request, uploads,5*1024*1024,"UTF-8",new DefaultFileRenamePolicy());
+
+			strI_rest = multi.getParameter("i_rest");
+			menu_nmArr = multi.getParameterValues("menu_nm");
+			menu_priceArr = multi.getParameterValues("menu_price");
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		if(menu_nmArr != null && menu_priceArr != null) {
+			for(int i=0; i<menu_nmArr.length; i++) {
+				System.out.println(i + ":" + menu_nmArr[i] + ", " + menu_priceArr[i]);
+			}	
+		}
+		
+		return "redirect:/restaurant/restDetail?i_rest=" + strI_rest;
 	}
 	
 
