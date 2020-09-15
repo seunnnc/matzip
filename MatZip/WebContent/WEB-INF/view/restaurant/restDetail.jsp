@@ -10,13 +10,7 @@
 				<form id="recFrm" action="/restaurant/addRecMenusProc" enctype="multipart/form-data" method="post">
 					<div><button type="button" onclick="addRecMenu()">메뉴 추가</button></div>
 					<input type="hidden" name="i_rest" value="${data.i_rest}">
-					<div id="recItem">
-						<div>
-							메뉴 : <input type="text" name="menu_nm">
-							가격 : <input type="text" name="menu_price">
-							사진 : <input type="file" name="menu_pic">
-						</div>
-					</div>
+					<div id="recItem"></div>
 					<div><input type="submit" value="등록"></div>
 				</form>
 			</div>
@@ -61,6 +55,8 @@
 			}
 		}
 		
+		var idx = 0;
+
 		function addRecMenu() {
 			var div = document.createElement('div')
 			
@@ -72,7 +68,7 @@
 			inpuPrice.setAttribute('name', 'menu_price')
 			var inputPic = document.createElement('input')
 			inputPic.setAttribute("type", "file");
-			inputPic.setAttribute('name', 'menu_pic')
+			inputPic.setAttribute('name', 'menu_pic_' + idx++)
 			
 			div.append('메뉴 : ')
 			div.append(inputNm)
