@@ -1,6 +1,6 @@
 package com.koreait.matzip.vo;
 
-public class RestaurantRecommedMenuVO {
+public class RestaurantRecommendMenuVO {
 	private int i_rest;
 	private int seq;
 	private String menu_nm;

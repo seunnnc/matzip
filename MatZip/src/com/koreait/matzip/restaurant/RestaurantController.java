@@ -81,7 +81,7 @@ public class RestaurantController {
 	}
 	
 	public String addRecMenusProc(HttpServletRequest request) {
-		int result = service.addRecMenus(request);
+		int i_rest = service.addRecMenus(request);
 		
 		return "redirect:/restaurant/restDetai;?i_rest=" + 0;
 	}
