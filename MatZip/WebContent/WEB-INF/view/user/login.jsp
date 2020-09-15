@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<div id="sectionContainerCenter">
+<div id="sectionContainerCenter" style="height:100%;">
 	<div>
 		<div class="msg">${msg}</div>
 		<form class="frm" id="frm" action="/user/loginProc" method="post">

@@ -42,8 +42,8 @@ public class RestaurantService {
 	
 	public int addRecMenus(HttpServletRequest request) {
 
-		String savePath = "/res/img/restaurant";
-		String tempPath = request.getServletContext().getRealPath(savePath + "/temp");
+		String savePath = request.getServletContext().getRealPath("/res/img/restaurant");
+		String tempPath = savePath + "/temp";	//getRealPath("") => 서버 돌아가는 절대주소값에 저장
 		FileUtils.makeFolder(tempPath);
 		
 		int maxFileSize = 10_485_760;
@@ -56,43 +56,47 @@ public class RestaurantService {
 			multi = new MultipartRequest(request, tempPath, maxFileSize, "UTF-8", new DefaultFileRenamePolicy());
 
 			i_rest = CommonUtils.getIntParameter("i_rest", multi);
+			
+			System.out.println("i_rest : " + i_rest);
 			menu_nmArr = multi.getParameterValues("menu_nm");
 			menu_priceArr = multi.getParameterValues("menu_price");
 			
-			if(menu_nmArr != null && menu_priceArr != null) {
-				list = new ArrayList();
-				for(int i=0; i<menu_nmArr.length; i++) {
-					RestaurantRecommendMenuVO vo = new RestaurantRecommendMenuVO();
-					vo.setI_rest(i_rest);
-					vo.setMenu_nm(menu_nmArr[i]);
-					vo.setMenu_price(CommonUtils.parseStringToInt(menu_priceArr[i]));
-					list.add(vo);
-				}	
+			if(menu_nmArr == null || menu_priceArr == null) {
+				return i_rest;
 			}
+			
+			list = new ArrayList();
+			for(int i=0; i<menu_nmArr.length; i++) {
+				RestaurantRecommendMenuVO vo = new RestaurantRecommendMenuVO();
+				vo.setI_rest(i_rest);
+				vo.setMenu_nm(menu_nmArr[i]);
+				vo.setMenu_price(CommonUtils.parseStringToInt(menu_priceArr[i]));
+				list.add(vo);
+			}	
 			
 			String targetPath = savePath + "/" + i_rest;
 			FileUtils.makeFolder(targetPath);
 			
-			String fileNm = "";
-			String saveFileNm = "";
+			String originFileNm = "";
+
 			Enumeration files = multi.getFileNames();
 			
 			while(files.hasMoreElements()) {
 				String key = (String)files.nextElement();
 				System.out.println("key : " + key);
-				fileNm = multi.getFilesystemName(key);
-				System.out.println("fileNm : " + fileNm);
+				originFileNm = multi.getFilesystemName(key);
+				System.out.println("fileNm : " + originFileNm);
 				
-				if(fileNm != null) {
-					String ext = fileNm.substring(fileNm.lastIndexOf("."));
-					saveFileNm = UUID.randomUUID() + ext;
+				if(originFileNm != null) {
+					String ext = FileUtils.getExt(originFileNm);
+					String saveFileNm = UUID.randomUUID() + ext;
 					System.out.println("saveFileNm : " + saveFileNm);
 					
-					File oldFile = new File(tempPath + "/" + fileNm);
+					File oldFile = new File(tempPath + "/" + originFileNm);
 					File newFile = new File(targetPath + "/" + saveFileNm);
 					oldFile.renameTo(newFile);
 					
-					int idx = CommonUtils.parseStringToInt(key.substring(key.lastIndexOf(".") + 1));
+					int idx = CommonUtils.parseStringToInt(key.substring(key.lastIndexOf("_") + 1));	
 					RestaurantRecommendMenuVO vo = list.get(idx);
 					vo.setMenu_pic(saveFileNm);
 				}
@@ -108,7 +112,16 @@ public class RestaurantService {
 			}	
 		}
 
-		return 0;
+		return i_rest;
 	}
 
+
+	public List<RestaurantRecommendMenuVO> getRecommendMenuList(int i_rest) {
+		return dao.selRecommendMenuList(i_rest);
+	}
+	
+	public int delRecMenu(RestaurantRecommendMenuVO param) {
+		return dao.delRecommendMenu(param);
+	}
+	
 }

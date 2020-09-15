@@ -1,54 +1,94 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<div id="sectionContainerCenter">
-	<div>
-		<c:if test="${loginUser.i_user == data.i_user}">
-			<div>
-				<button onclick="isDel()">삭제</button>
-				
-				<form id="recFrm" action="/restaurant/addRecMenusProc" enctype="multipart/form-data" method="post">
-					<div><button type="button" onclick="addRecMenu()">메뉴 추가</button></div>
-					<input type="hidden" name="i_rest" value="${data.i_rest}">
-					<div id="recItem"></div>
-					<div><input type="submit" value="등록"></div>
-				</form>
-			</div>
-		</c:if>
-		<div>
-			가게 사진들
-		</div>
-		<div class="restaurant-detail">
-			<div id="detail-header">
-				<div class="restaurant_title_wrap">
-					<span class="title">
-						<h1 class="restaurant_name">${data.nm}</h1>
-					</span>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
+<div style="width:100%;">
+	<div class="recMenuContainer">
+		<c:forEach items="${recommendMenuList}" var="item">
+			<div class="recMenuItem" id="recMenuItem_${item.seq }">
+				<div class="pic">
+					<c:if test="${item.menu_pic != null and item.menu_pic != ''}">
+						<img src="/res/img/restaurant/${data.i_rest}/${item.menu_pic}">
+					</c:if>
 				</div>
-				<div class="status_branch_name">
-					<span class="cnt_hit">${data.cntHits}</span>
-					<span class="cnt_favorite">${data.cntFavorite}</span>
+				<div class="info">
+					<div class="nm">${item.menu_nm}</div>
+					<div class="price"><fmt:formatNumber type="number" value="${item.menu_price}"/></div>
+					<c:if test="${loginUser.i_user == data.i_user}">
+						<div class="delIconContainer" onclick="delRecMenu(${data.i_rest}, ${item.seq})">
+							<span><i class="fas fa-times"></i></span>
+						</div>
+					</c:if>
 				</div>
 			</div>
-			<div>
-				<table>
-					<caption>레스토랑 상세정보</caption>
-					<tbody>
-						<tr>
-							<td>주소</td>
-							<td>${data.addr}</td>
-						</tr>
-						<tr>
-							<td>카테고리</td>
-							<td>${data.cd_category_nm}</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
+		</c:forEach>
 	</div>
+	<div id="sectionContainerCenter">
+		<div>
+			<c:if test="${loginUser.i_user == data.i_user}">
+				<div>
+					<button onclick="isDel()">삭제</button>
+					
+					<form id="recFrm" action="/restaurant/addRecMenusProc" enctype="multipart/form-data" method="post">
+						<div><button type="button" onclick="addRecMenu()">메뉴 추가</button></div>
+						<input type="hidden" name="i_rest" value="${data.i_rest}">
+						<div id="recItem"></div>
+						<div><input type="submit" value="등록"></div>
+					</form>
+				</div>
+			</c:if>
+			
+			<div class="restaurant-detail">
+				<div id="detail-header">
+					<div class="restaurant_title_wrap">
+						<span class="title">
+							<h1 class="restaurant_name">${data.nm}</h1>
+						</span>
+					</div>
+					<div class="status_branch_name">
+						<span class="cnt_hit">${data.cntHits}</span>
+						<span class="cnt_favorite">${data.cntFavorite}</span>
+					</div>
+				</div>
+				<div>
+					<table>
+						<caption>레스토랑 상세정보</caption>
+						<tbody>
+							<tr>
+								<td>주소</td>
+								<td>${data.addr}</td>
+							</tr>
+							<tr>
+								<td>카테고리</td>
+								<td>${data.cd_category_nm}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>	
 	
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 	<script>
+		function delRecMenu(i_rest, seq) {
+			console.log('i_rest : ' + i_rest)
+			console.log('seq : ' + seq)
+			
+			axios.get('/restaurant/ajaxDelRecMenu', {
+				params: {
+					i_rest, seq
+				}
+			}).then(function(res) {
+				if(res.data.result == 1) {
+					var ele = document.querySelector('#recMenuItem_' + seq)
+					ele.remote()
+				}
+				location.reload()
+			})
+		}
+	
 		function isDel(){
 			if(confirm('삭제 하시겠습니까?')) {
 				location.href='/restaurant/restDetail?i_rest=${data.i_rest}'
