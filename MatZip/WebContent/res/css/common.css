@@ -43,6 +43,11 @@ a {
 	margin-left: 20px;
 }
 
+.bg_black {
+	background-color: #000;
+}
+
+
 #container {
 	display: flex;
 	flex-direction: column;
@@ -114,6 +119,7 @@ a {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	padding-top: 50px;
 }
 
 .containerPImg {
